@@ -1,0 +1,38 @@
+CREATE TABLE "customer" (
+  "id" integer PRIMARY KEY,
+  "nameFirst" varchar,
+  "nameLast" varchar,
+  "username" varchar,
+  "password" varchar,
+  "legalCaseId" integer
+);
+
+CREATE TABLE "employees" (
+  "id" integer PRIMARY KEY,
+  "nameFirst" varchar,
+  "nameLast" varchar,
+  "username" varchar,
+  "password" varchar,
+  "confidential" bool
+);
+
+-- assumed that customerId = legalCase.id
+CREATE TABLE "legalCase" (
+  "id" integer PRIMARY KEY,
+  "title" varchar,
+  "body" text,
+  "status" varchar,
+  "confidential" bool
+);
+
+CREATE TABLE "statute" (
+  "section" varchar PRIMARY KEY,
+  "title" varchar,
+  "body" text
+);
+
+COMMENT ON COLUMN "legalCase"."body" IS 'Description of legal case';
+
+COMMENT ON COLUMN "statute"."body" IS 'Body of section';
+
+ALTER TABLE "legalCase" ADD FOREIGN KEY ("customerId") REFERENCES "customer" ("id");
